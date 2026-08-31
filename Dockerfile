@@ -29,13 +29,17 @@ COPY e2e/fixture/package.json e2e/fixture/package.json
 
 RUN sed -i '/slidev/d' pnpm-workspace.yaml
 RUN sed -i '/@lunariajs\/core/d' package.json
+RUN sed -i 's/verifyDepsBeforeRun: error/verifyDepsBeforeRun: warn/' pnpm-workspace.yaml
 RUN pnpm install --no-frozen-lockfile
 
 # ---- Build ----
 FROM deps AS build
 
+ENV CI=true
 COPY . .
 RUN sed -i '/slidev/d' pnpm-workspace.yaml
+RUN sed -i '/@lunariajs\/core/d' package.json
+RUN sed -i 's/verifyDepsBeforeRun: error/verifyDepsBeforeRun: warn/' pnpm-workspace.yaml
 RUN sed -i 's|file:./data.db|file:./data/data.db|' templates/blog/astro.config.mjs
 
 RUN pnpm build && pnpm --filter @emdash-cms/template-blog build
