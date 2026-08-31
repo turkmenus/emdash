@@ -28,7 +28,8 @@ COPY docs/package.json docs/package.json
 COPY e2e/fixture/package.json e2e/fixture/package.json
 
 RUN sed -i '/slidev/d' pnpm-workspace.yaml
-RUN pnpm install --frozen-lockfile
+RUN sed -i '/@lunariajs\/core/d' package.json
+RUN pnpm install --no-frozen-lockfile
 
 # ---- Build ----
 FROM deps AS build
