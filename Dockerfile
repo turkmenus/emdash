@@ -61,9 +61,6 @@ COPY --from=build /deploy .
 RUN mkdir -p data uploads \
     && ln -s /app/node_modules/.pnpm/node_modules/kysely /app/node_modules/kysely
 
-# Install sharp for Astro image service
-RUN cd /app && npm install sharp --no-save || true
-
 ENV HOST=0.0.0.0
 ENV PORT=4321
 EXPOSE 4321

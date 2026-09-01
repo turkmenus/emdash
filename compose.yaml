@@ -3,8 +3,6 @@ services:
     build: .
     ports:
       - "4321:4321"
-    environment:
-      - EMDASH_SITE_URL=https://emdash.testedeli.online
     volumes:
       - emdash-data:/app/data
       - emdash-uploads:/app/uploads
